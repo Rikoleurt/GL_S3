@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Observable;
+import clock.Observer;
 
 import javax.swing.JFrame;
 
@@ -14,7 +16,7 @@ import clock.util.PositionManager;
  * 
  * @author Quentin Nater
  */
-public class AnalogClock extends JFrame {
+public class AnalogClock extends JFrame implements Observer {
     private static final long serialVersionUID = 3258408447900069937L;
 
 	/**
@@ -53,11 +55,12 @@ public class AnalogClock extends JFrame {
     /**
      * Updates the clock.
      */
+    @Override
     public void update(int hour, int minute, int second) {
         analogClockPanel.setTime(hour, minute, second);
         analogClockPanel.repaint();
     }
-    
+
     /**
      * A window listener that detaches the clock from the timer when the window 
      * is being closed.

@@ -1,9 +1,13 @@
 package clock.timer;
 
+import clock.Observer;
+import clock.Subject;
+import clock.analog.AnalogClock;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import clock.analog.AnalogClock;
+import java.util.List;
 import java.util.logging.*;
 
 /**
@@ -13,7 +17,7 @@ import java.util.logging.*;
  * 
  * @author Quentin Nater
  */
-public class ClockTimer implements Runnable {
+public class ClockTimer extends Subject implements Runnable {
     private long time;
     
     private Calendar calendar;
@@ -24,8 +28,8 @@ public class ClockTimer implements Runnable {
     private Thread thread;
 
 	private static Logger loggingService = Logger.getLogger("ClockTimer");
-	
-	/**
+
+    /**
 	 * 
 	 * @uml.property name="analogClock"
 	 * @uml.associationEnd multiplicity="(1 1)"
@@ -36,9 +40,9 @@ public class ClockTimer implements Runnable {
     /**
      * Creates a new instance of <code>ClockTimer</code>.
      */
-    public ClockTimer(AnalogClock analogClock) {
-		// TODO Remove the analog clock argument from the constructor, once the observer pattern is used.
-		this.analogClock = analogClock;
+    public ClockTimer() {
+//		this.analogClock = analogClock;
+        // We removed analogClock of the constructor to use the observer pattern
         calendar = new GregorianCalendar();
     }
 
@@ -63,6 +67,8 @@ public class ClockTimer implements Runnable {
         return calendar.get(Calendar.SECOND);
     }
 
+
+
     /**
      * Notifies the observers every second.
      */
@@ -71,9 +77,7 @@ public class ClockTimer implements Runnable {
             try {
                 time = System.currentTimeMillis();
                 calendar.setTimeInMillis(time);
-                // TODO Notify observers here, instead of setting the time direcly.
-				// Program against the observer interface, instead of programming against the analog clock class!
-				analogClock.update(getHour(), getMinute(), getSecond());
+                notifyObservers(getHour(), getMinute(), getSecond());
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
             	loggingService.severe("Timer got interrupted");

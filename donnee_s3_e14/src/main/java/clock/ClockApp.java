@@ -9,19 +9,13 @@ import clock.timer.ClockTimer;
  * @author Quentin Nater
  */
 public class ClockApp {
- 
-    /**
-     * Creates a new instance of <code>ClockApp</code>.
-     */
-    public ClockApp() {
-		ClockTimer timer = new ClockTimer(new AnalogClock());
-		timer.start();
-    }
-    
     /**
      * The application's main method.
      */
     public static void main(String[] args) {
-        new ClockApp();
+        AnalogClock analogClock = new AnalogClock();
+        ClockTimer timer = new ClockTimer();
+        timer.attach(analogClock);
+        timer.start();
     }
 }
