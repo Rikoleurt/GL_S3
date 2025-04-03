@@ -1,0 +1,8 @@
+Question 5
+
+Firstly, we chose to implement Subject and Observer instead of using java.util. Then, we decided to make
+ClockTimer extend from Subject because it is the component that updates the data.
+
+Thus, we chose to use the push model as we thought it was more representative it this code architecture.
+(We get the information by watching the clock itself)
+Moreover, we judged that it was easier to implement in this package.

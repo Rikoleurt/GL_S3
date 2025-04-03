@@ -1,6 +1,7 @@
 package clock;
 
 import clock.analog.AnalogClock;
+import clock.analog.DigitalClock;
 import clock.timer.ClockTimer;
 
 /**
@@ -14,7 +15,9 @@ public class ClockApp {
      */
     public static void main(String[] args) {
         AnalogClock analogClock = new AnalogClock();
+        DigitalClock digitalClock = new DigitalClock();
         ClockTimer timer = new ClockTimer();
+        timer.attach(digitalClock);
         timer.attach(analogClock);
         timer.start();
     }
